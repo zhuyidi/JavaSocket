@@ -1,5 +1,8 @@
 package sockettests.mulvsmul.common;
 
+/**
+ * Created by dela on 1/22/18.
+ */
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -44,15 +47,15 @@ public class CommonThread implements Runnable {
     private void stop() {
         goon = false;
         try {
-            if(inputStream != null) {
+            if (inputStream != null) {
                 inputStream.close();
                 inputStream = null;
             }
-            if(outputStream != null) {
+            if (outputStream != null) {
                 outputStream.close();
                 outputStream = null;
             }
-            if(socket != null && !socket.isClosed()) {
+            if (socket != null && !socket.isClosed()) {
                 socket.close();
                 socket = null;
             }
@@ -69,11 +72,11 @@ public class CommonThread implements Runnable {
         while (goon) {
             try {
                 sendMessage = inputStream.readUTF();
-                JSONObject
+//                JSONObject
             } catch (IOException e) {
                 // 如果发生了异常, 那么说对方在发送数据的时候发生异常,
                 // 要根据connectionOk的值进行分类向上抛出信息
-                if(connectionOk == false) {
+                if (connectionOk == false) {
                     // connectionOk为false, 说明对方是异常下线
                     Message message = new Message();
                     message.setFrom("#");
@@ -95,3 +98,4 @@ public class CommonThread implements Runnable {
 
     }
 }
+

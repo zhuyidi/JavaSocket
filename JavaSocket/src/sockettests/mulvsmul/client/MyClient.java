@@ -1,6 +1,6 @@
 package sockettests.mulvsmul.client;
 
-import sockettests.mulvsmul.common.CommonThread;
+//import sockettests.mulvsmul.common.CommonThread;
 
 import java.io.*;
 import java.net.Socket;
@@ -18,7 +18,7 @@ public class MyClient {
         // 连接服务器
         socket = new Socket("127.0.0.1", 33000);
         // 为客户端实例化一个处理线程, 持续监听从服务端发过来的消息
-        new Thread(new CommonThread(socket)).start();
+//        new Thread(new CommonThread(socket)).start();
         // 获取该Socket对应的输出流
         outputStream = new DataOutputStream(socket.getOutputStream());
         // 实例化控制台输入流
