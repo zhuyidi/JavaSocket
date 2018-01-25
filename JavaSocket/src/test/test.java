@@ -1,4 +1,3 @@
-package test;
 
 /**
  * Created by dela on 1/22/18.
@@ -6,28 +5,13 @@ package test;
 public class test {
     public static void main(String[] args) {
         int len = 3;
-        String str = String.valueOf(len + 100000000).substring(1);
-        System.out.println(str);
+//        String str = String.valueOf(len + 100000000).substring(1);
+//        System.out.println(str);
+
+//        String filePath = "/home/dela/qwe.txt";
+//        String fileanme = filePath.substring(filePath.lastIndexOf('/')+1, filePath.length());
+//        System.out.println(fileanme);
+        System.out.println(8/3);
     }
 }
 
-class Size {
-    private int a;
-    private String str;
-
-    public int getA() {
-        return a;
-    }
-
-    public void setA(int a) {
-        this.a = a;
-    }
-
-    public String getStr() {
-        return str;
-    }
-
-    public void setStr(String str) {
-        this.str = str;
-    }
-}
