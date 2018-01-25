@@ -1,17 +1,19 @@
+import multhreadfiletransport.util.PackageUtil;
+import multhreadfiletransport.util.ParseUtil;
+
+import java.lang.*;
 
 /**
- * Created by dela on 1/22/18.
+ * Created by dela on 1/25/18.
  */
 public class test {
     public static void main(String[] args) {
-        int len = 3;
-//        String str = String.valueOf(len + 100000000).substring(1);
-//        System.out.println(str);
+        String filename = "0000123";
+        PackageUtil.addHeader(filename);
 
-//        String filePath = "/home/dela/qwe.txt";
-//        String fileanme = filePath.substring(filePath.lastIndexOf('/')+1, filePath.length());
-//        System.out.println(fileanme);
-        System.out.println(8/3);
+        byte[] temp = filename.getBytes();
+
+        System.out.println(ParseUtil.getByteStrLen(temp));
+
     }
 }
-

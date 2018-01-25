@@ -7,11 +7,11 @@ package multhreadfiletransport.model;
 // 一个文件的基本信息, 包括文件名和文件长度
 public class FileInfo {
     private String fileName;
-    private int fileLen;
+    private long fileLen;
 
     public FileInfo() { }
 
-    public FileInfo(String fileName, int fileLen) {
+    public FileInfo(String fileName, long fileLen) {
         this.fileName = fileName;
         this.fileLen = fileLen;
     }
@@ -24,11 +24,11 @@ public class FileInfo {
         this.fileName = fileName;
     }
 
-    public int getFileLen() {
+    public long getFileLen() {
         return fileLen;
     }
 
-    public void setFileLen(int fileLen) {
+    public void setFileLen(long fileLen) {
         this.fileLen = fileLen;
     }
 }

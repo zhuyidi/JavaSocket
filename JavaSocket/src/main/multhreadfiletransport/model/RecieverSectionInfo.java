@@ -22,18 +22,29 @@ public class RecieverSectionInfo {
     private long saveLen;
 
     public RecieverSectionInfo() {
-        recieveMark = false;
-        recieveLen = 0;
-        saveMark = false;
-        saveLen = 0;
+        this.recieveMark = false;
+        this.recieveLen = 0;
+        this.saveMark = false;
+        this.saveLen = 0;
     }
 
     public RecieverSectionInfo(String targetFileName) {
         this.targetFileName = targetFileName;
-        recieveMark = false;
-        recieveLen = 0;
-        saveMark = false;
-        saveLen = 0;
+        this.recieveMark = false;
+        this.recieveLen = 0;
+        this.saveMark = false;
+        this.saveLen = 0;
+    }
+
+    public RecieverSectionInfo(String targetFileName, String tempFileName, long offset, long sectionLen) {
+        this.targetFileName = targetFileName;
+        this.tempFileName = tempFileName;
+        this.offset = offset;
+        this.sectionLen = sectionLen;
+        this.recieveMark = false;
+        this.recieveLen = 0;
+        this.saveMark = false;
+        this.saveLen = 0;
     }
 
     public RecieverSectionInfo(String targetFileName, String tempFileName, long offset, long sectionLen,
