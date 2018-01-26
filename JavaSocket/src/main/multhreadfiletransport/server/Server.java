@@ -74,7 +74,7 @@ public class Server {
             recieverSectionInfos.add(section);
         }
 
-        fileInfo.setSectionInfoList(recieverSectionInfos);
+//        fileInfo.setSectionInfoList(recieverSectionInfos);
         return fileInfo;
     }
 }

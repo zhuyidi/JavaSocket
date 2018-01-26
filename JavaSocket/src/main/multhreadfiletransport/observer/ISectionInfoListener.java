@@ -1,10 +1,15 @@
 package multhreadfiletransport.observer;
 
-import sockettests.mulvsmul.common.ICommunicationSpeaker;
+
+import multhreadfiletransport.model.RecieverSectionInfo;
+
+import java.util.List;
 
 /**
  * Created by dela on 1/25/18.
  */
 public interface ISectionInfoListener {
-    void getInfo(ICommunicationSpeaker speaker);
+    void getSectionInfoList(List<RecieverSectionInfo> sectionInfoList);
+    void getSectionInfo(RecieverSectionInfo sectionInfo);
+    void getSectionSaveOK(RecieverSectionInfo sectionInfo);
 }

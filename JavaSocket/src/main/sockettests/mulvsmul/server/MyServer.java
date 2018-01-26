@@ -2,6 +2,8 @@ package sockettests.mulvsmul.server;
 
 //import sockettests.mulvsmul.common.CommonThread;
 
+import sockettests.mulvsmul.common.CommonThread;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -31,7 +33,7 @@ public class MyServer {
             // 将连接上的客户端的Socket保存在socketList中
             socketList.add(socket);
             // 然后给这个客户端分配一个线程维持该客户端与服务端的通信
-//            new Thread(new CommonThread(socket)).start();
+            new Thread(new CommonThread(socket)).start();
         }
     }
 

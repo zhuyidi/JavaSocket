@@ -3,7 +3,7 @@ package multhreadfiletransport.model;
 /**
  * Created by dela on 1/23/18.
  */
-public class RecieverSectionInfo {
+public class RecieverSectionInfo implements Comparable<RecieverSectionInfo> {
     // 目标总文件名
     private String targetFileName;
     // 临时文件名
@@ -121,5 +121,10 @@ public class RecieverSectionInfo {
 
     public void setSaveLen(long saveLen) {
         this.saveLen = saveLen;
+    }
+
+    @Override
+    public int compareTo(RecieverSectionInfo o) {
+        return this.getOffset() > o.getOffset() ? 1 : -1;
     }
 }

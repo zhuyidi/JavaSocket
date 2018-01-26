@@ -1,7 +1,10 @@
 package multhreadfiletransport.client.reciever;
 
 import multhreadfiletransport.model.FileInfo;
+import multhreadfiletransport.model.RecieverSectionInfo;
 import multhreadfiletransport.model.RecieverSimpleInfo;
+import multhreadfiletransport.observer.ISectionInfoListener;
+import multhreadfiletransport.observer.ISectionInfoSpeaker;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -15,7 +18,7 @@ import java.util.Scanner;
  */
 // 接收中心
 // 接收中心首先收到文件的信息, 然后开启接收服务器, 在接收服务器中开启接收线程
-public class RecieverCenter {
+public class RecieverCenter implements ISectionInfoListener, Runnable{
     private Socket socket;    // 与server连接的socket
     private BufferedInputStream inputStream;    // 与server连接的socket的输入流
     private List<FileInfo> fileInfoList;    // 从server那里接收到的文件列表
@@ -23,6 +26,9 @@ public class RecieverCenter {
     private int senderCount;    // 服务器分配的sender的数量
     private RecieverServer recieverServer;  // RT持续accept, 连接sender, 一旦连接完璧, 立即关闭
 
+    {
+        recieverMap = new RecieverMap();
+    }
 
     public RecieverCenter() {
         try {
@@ -44,22 +50,6 @@ public class RecieverCenter {
         }
     }
 
-//    // 模拟接收分片信息(略去解析过程, 直接构造进RecieverSectionInfo对象中)
-//    // 1. 目标文件名
-//    // 2. 分片文件名
-//    // 3. 起始偏移量
-//    // 4. 分片长度
-//    public void input() {
-//        Scanner scanner = new Scanner(System.in);
-//
-//        for (int i = 0; i < 3; i++) {
-//            RecieverSectionInfo sectionInfo =
-//                    new RecieverSectionInfo(scanner.next(), scanner.next(), scanner.nextLong(), scanner.nextLong());
-//            sectionInfoList.add(sectionInfo);
-//        }
-//
-//    }
-
     public void start() throws IOException {
         // 连接服务器, 然后接收服务器发来的目标文件列表和服务器分配的sender数量.
         // 但是此时是模拟服务器发送数据, 所有数据从键盘输入,
@@ -69,11 +59,9 @@ public class RecieverCenter {
         }
         recieveFromServer();
 
-        // 将从服务器接收的文件列表信息保存一份List在自己的实例中, 并new出map类, 进行map初始化
-        initRecieveMap();
+        // 将从服务器接收的文件列表信息保存一份List在自己的实例中, 并进行map初始化
+        recieverMap.initRecieveMap(fileInfoList);
 
-        // new出RecieverServer类, 进行持续监听
-        recieverServer = new RecieverServer();
     }
 
     public void recieveFromServer() {
@@ -90,12 +78,31 @@ public class RecieverCenter {
         }
     }
 
-    public void initRecieveMap() {
-        recieverMap = new RecieverMap();
-        Map<String, RecieverSimpleInfo> fileInfoMap = new HashMap<>();
-
-        for (FileInfo fileInfo : fileInfoList) {
-            fileInfoMap.put(fileInfo.getFileName(), new RecieverSimpleInfo(fileInfo.getFileName(), fileInfo.getFileLen()));
+    @Override
+    public void run() {
+        // new出RecieverServer类, 进行持续监听
+        recieverServer = new RecieverServer(this);
+        try {
+            recieverServer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+    @Override
+    public synchronized void getSectionInfoList(List<RecieverSectionInfo> sectionInfoList) {
+        // 将这个sectionlist进行解析, 填充到map类里面
+        recieverMap.setSectionInfoList(sectionInfoList);
+    }
+
+    @Override
+    public synchronized void getSectionInfo(RecieverSectionInfo sectionInfo) {
+        // 这个section进行解析, 填充map类(主要是进行recievemark的标记)
+    }
+
+    @Override
+    public synchronized void getSectionSaveOK(RecieverSectionInfo sectionInfo) {
+        // 将这个section里面的所有mark和savelen等信息都保存到
+    }
+
 }

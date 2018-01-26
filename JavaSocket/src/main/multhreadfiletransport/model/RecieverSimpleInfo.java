@@ -1,7 +1,7 @@
 package multhreadfiletransport.model;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by dela on 1/23/18.
@@ -18,15 +18,19 @@ public class RecieverSimpleInfo {
     // 文件是否保存完
     private boolean saveMark;
     // 文件保存了多少(依据随机读写流写入文件的长度来算)
-    private long saveLen;
+//    private long saveLen;
     // 子文件的全部信息
-    List<RecieverSectionInfo> sectionInfoList;
+    TreeSet<RecieverSectionInfo> sectionInfoSet;
+
+    {
+        sectionInfoSet = new TreeSet<>();
+    }
 
     public RecieverSimpleInfo() {
         this.recieveMark = false;
         this.recieveLen = 0;
         this.saveMark = false;
-        this.saveLen = 0;
+//        this.saveLen = 0;
     }
 
     public RecieverSimpleInfo(String targetFileName, long fileLen) {
@@ -35,22 +39,22 @@ public class RecieverSimpleInfo {
         this.recieveMark = false;
         this.recieveLen = 0;
         this.saveMark = false;
-        this.saveLen = 0;
+//        this.saveLen = 0;
     }
 
-    public RecieverSimpleInfo(String targetFileName, long fileLen, LinkedList<RecieverSectionInfo> sectionInfoList) {
+    public RecieverSimpleInfo(String targetFileName, long fileLen, Set<RecieverSectionInfo> sectionInfoList) {
         this(targetFileName, fileLen);
-        this.sectionInfoList = sectionInfoList;
+        this.sectionInfoSet = sectionInfoSet;
     }
 
-    public RecieverSimpleInfo(String targetFileName, long fileLen, boolean recieveMark, long recieveLen, boolean saveMark, long saveLen, LinkedList<RecieverSectionInfo> sectionInfoList) {
+    public RecieverSimpleInfo(String targetFileName, long fileLen, boolean recieveMark, long recieveLen, boolean saveMark, TreeSet<RecieverSectionInfo> sectionInfoSet) {
         this.targetFileName = targetFileName;
         this.fileLen = fileLen;
         this.recieveMark = recieveMark;
         this.recieveLen = recieveLen;
         this.saveMark = saveMark;
-        this.saveLen = saveLen;
-        this.sectionInfoList = sectionInfoList;
+//        this.saveLen = saveLen;
+        this.sectionInfoSet = sectionInfoSet;
     }
 
     public String getTargetFileName() {
@@ -93,19 +97,19 @@ public class RecieverSimpleInfo {
         this.saveMark = saveMark;
     }
 
-    public long getSaveLen() {
-        return saveLen;
+//    public long getSaveLen() {
+//        return saveLen;
+//    }
+//
+//    public void setSaveLen(long saveLen) {
+//        this.saveLen = saveLen;
+//    }
+
+    public TreeSet<RecieverSectionInfo> getSectionInfoSet() {
+        return sectionInfoSet;
     }
 
-    public void setSaveLen(long saveLen) {
-        this.saveLen = saveLen;
-    }
-
-    public List<RecieverSectionInfo> getSectionInfoList() {
-        return sectionInfoList;
-    }
-
-    public void setSectionInfoList(List<RecieverSectionInfo> sectionInfoList) {
-        this.sectionInfoList = sectionInfoList;
+    public void setSectionInfoSet(TreeSet<RecieverSectionInfo> sectionInfoList) {
+        this.sectionInfoSet = sectionInfoList;
     }
 }

@@ -13,6 +13,8 @@ public class RecieverServer {
     private boolean goon;
     private int senderCount;
     private List<Socket> socketList;
+    private RecieverCenter recieverCenter;
+
 
     {
         try {
@@ -22,11 +24,13 @@ public class RecieverServer {
         }
     }
 
-    public RecieverServer() {
+    public RecieverServer(RecieverCenter recieverCenter) {
+        this.recieverCenter = recieverCenter;
         goon = true;
     }
 
-    public RecieverServer(int senderCount) {
+    public RecieverServer(RecieverCenter recieverCenter, int senderCount) {
+        this.recieverCenter = recieverCenter;
         this.senderCount = senderCount;
         goon = true;
     }
@@ -36,7 +40,7 @@ public class RecieverServer {
         int time = 0;
         while (goon) {
             Socket socket = serverSocket.accept();
-            new Thread(new RecieverThread(socket)).start();
+            new Thread(new RecieverThread(recieverCenter, socket)).start();
             time++;
 
             if(time == senderCount) {
