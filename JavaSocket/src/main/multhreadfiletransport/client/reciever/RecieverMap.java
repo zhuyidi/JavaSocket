@@ -3,7 +3,6 @@ package multhreadfiletransport.client.reciever;
 import multhreadfiletransport.model.FileInfo;
 import multhreadfiletransport.model.RecieverSectionInfo;
 import multhreadfiletransport.model.RecieverSimpleInfo;
-import multhreadfiletransport.util.ParseUtil;
 
 import java.util.*;
 
@@ -49,7 +48,7 @@ public class RecieverMap {
             simpleInfo.setRecieveMark(true);
             simpleInfo.setReciveLen(simpleInfo.getRecieveLen() + sectionInfo.getSectionLen());
 
-            // 3. 将这个section插入到list中
+            // 3. 将这个section插入到set中(在section类中已经实现了)
             TreeSet<RecieverSectionInfo> sectionInfos = simpleInfo.getSectionInfoSet();
             sectionInfos.add(sectionInfo);            
         }
